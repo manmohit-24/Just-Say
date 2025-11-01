@@ -13,7 +13,7 @@ const RESPONSES = {
 	USERNAME_NOT_AVAILABLE: {
 		success: false,
 		message: "Username is not available",
-		status: 400,
+		status: 200,
 	},
 	INVALID_USERNAME: (msg: string) => ({
 		success: false,
@@ -29,7 +29,9 @@ const RESPONSES = {
 
 export async function GET(req: NextRequest) {
 	try {
-		const username = req.nextUrl.searchParams.get("username");
+        const username = req.nextUrl.searchParams.get("username");
+        console.log(username);
+        
 		const validateRes = usernameValidation.safeParse(username);
 
 		if (!validateRes.success) {

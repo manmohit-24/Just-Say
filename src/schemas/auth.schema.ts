@@ -23,7 +23,7 @@ export const passwordValidation = z
 	.max(50, "Password must be at most 50 characters long");
 
 export const nameValidation = z
-	.string()
+	.string("Name is required")
 	.min(3, "Name must be at least 3 characters long")
 	.max(50, "Name must be at most 50 characters long");
 
@@ -40,6 +40,6 @@ export const logInSchema = z.object({
 });
 
 export const activationCodeSchema = z
-	.string()
+	.string( "Verification code is required" )
 	.length(6, "Verification code must be 6 digits long");
 

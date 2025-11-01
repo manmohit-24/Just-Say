@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
 
 		const emailRes = await sendEmail(emailConfig);
 
-		if (!emailRes.success) return APIResponse(emailRes);
+		// if (!emailRes.success) return APIResponse(emailRes);
 
 		return APIResponse(RESPONSES.SUCCESS);
 	} catch (error) {

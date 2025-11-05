@@ -48,10 +48,12 @@ export async function GET(req: NextRequest) {
 
 		const messages = await Message.aggregate(pipeline);
 
-		const messagesIds = messages.map((msg) => msg._id);
-		markMessagesRead(messagesIds).catch((err) =>
-			console.error("Background markMessagesRead failed:", err)
-		);
+		if (role === "receiver") {
+			const messagesIds = messages.map((msg) => msg._id);
+			markMessagesRead(messagesIds).catch((err) =>
+				console.error("Background markMessagesRead failed:", err)
+			);
+		}
 
 		let nextCursor = null;
 		if (messages.length > limit) {

@@ -32,7 +32,6 @@ import {
 	CheckCheck,
 	Clock,
 	XCircle,
-	Eye,
 	BellDot,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
@@ -134,8 +133,10 @@ export default function MessageCard({
 			const { data: res } = await axios.delete(
 				`/api/unsend-message?messageId=${message._id}`
 			);
-			if (res.success) toast.success(res.message);
-			else toast.error(res.message);
+			if (res.success) {
+				toast.success(res.message);
+				handleMsgDelete({ messageId: message._id, role });
+			} else toast.error(res.message);
 		} catch (error) {
 			const axiosError = error as AxiosError<ApiResType>;
 			toast.error(axiosError.response?.data.message || "Something went wrong");
@@ -150,9 +151,10 @@ export default function MessageCard({
 				<CardHeader className="pb-3">
 					<div className="flex items-start justify-between">
 						<div className="flex items-center gap-3">
-							<Avatar className="h-10 w-10">
-								{/* <AvatarImage src={displayUser.avatar} alt={displayUser.name[0]} /> */}
-								<AvatarFallback>{displayUser.name[0]}</AvatarFallback>
+							<Avatar className="h-10 w-10 bg-foreground rounded-full flex items-center justify-center">
+								<AvatarFallback className="text-background font-bold bg-transparent">
+									{displayUser.name[0]}
+								</AvatarFallback>
 							</Avatar>
 							<div>
 								<CardTitle className="text-base font-semibold">

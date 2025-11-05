@@ -9,7 +9,7 @@ export interface ApiResType {
 	data?: object;
 }
 type safeUserResObj = {
-	id: string;
+	_id: string;
 	email: string;
 	username: string;
 	name: string;
@@ -45,7 +45,7 @@ export const APIResponse = (response: ApiResType): NextResponse => {
 
 export function safeUserResponse(user: UserDoc): safeUserResObj {
 	return {
-		id: user._id as string,
+		_id: user._id as string,
 		email: user.email,
 		username: user.username,
 		name: user.name,

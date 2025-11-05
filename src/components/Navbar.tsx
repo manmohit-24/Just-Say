@@ -41,11 +41,11 @@ export default function Navbar() {
 						</Button>
 					</DropdownMenuTrigger>
 
-					<DropdownMenuContent align="end" className="w-48">
+					<DropdownMenuContent align="end" className="w-48 z-110">
 						<DropdownMenuLabel>
 							<p className="text-sm font-medium">{user.name}</p>
 							<p className="text-xs text-muted-foreground truncate">
-								{user.email}
+								@{user.username}
 							</p>
 						</DropdownMenuLabel>
 

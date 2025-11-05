@@ -32,6 +32,9 @@ export async function GET(req: NextRequest) {
 		const { user } = sessionValidationRes.data as any;
 
 		let username = req.nextUrl.searchParams.get("username");
+		let userId = req.nextUrl.searchParams.get("userId");
+
+		if (!userId && !username) return APIResponse(RESPONSES.INTERNAL_ERROR);
 
 		if (username === "me" || username === user.username)
 			return APIResponse(
@@ -41,14 +44,18 @@ export async function GET(req: NextRequest) {
 				})
 			);
 
-		const validateRes = usernameValidation.safeParse(username);
+		if (username) {
+			const validateRes = usernameValidation.safeParse(username);
 
-		if (!validateRes.success) {
-			const zodErrorMsg = JSON.parse(validateRes.error.message)[0].message;
-			return APIResponse(RESPONSES.INVALID_USERNAME(zodErrorMsg));
+			if (!validateRes.success) {
+				const zodErrorMsg = JSON.parse(validateRes.error.message)[0].message;
+				return APIResponse(RESPONSES.INVALID_USERNAME(zodErrorMsg));
+			}
 		}
 
-		const foundUser = await User.findOne({ username });
+		const foundUser = username
+			? await User.findOne({ username })
+			: await User.findById(userId);
 		if (!foundUser) return APIResponse(RESPONSES.INTERNAL_ERROR);
 
 		return APIResponse(

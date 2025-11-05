@@ -46,7 +46,10 @@ export async function POST(req: NextRequest) {
 
 		const body = await req.json();
 
-		const validateRes = messageReqSchema.safeParse(body);
+
+        const validateRes = messageReqSchema.safeParse(body);
+                        console.log("here");
+
 		const { content, receiverId, isAnonymous, isTrulyAnonymous } = body;
 
 		if (!validateRes.success || receiverId == sender._id) {
@@ -55,7 +58,7 @@ export async function POST(req: NextRequest) {
 				: "";
 			return APIResponse(RESPONSES.INVALID_REQUEST(validationErrorMsg));
 		}
-
+        
 		const receiver = await User.findById(receiverId);
 		if (!receiver) return APIResponse(RESPONSES.RECEIVER_NOT_FOUND);
 

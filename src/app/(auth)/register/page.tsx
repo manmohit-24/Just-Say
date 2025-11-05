@@ -34,13 +34,11 @@ export default function () {
 		username,
 		500
 	);
-    const [isCheckingUsername, setIsCheckingUsername] = useState(false);
-    
-    const [isSubmitting, setIsSubmitting] = useState(false);
-        const [isLoginAsGuest, setIsLoginAsGuest] = useState(false);
-        const [showPassword, setShowPassword] = useState(false);
-    
+	const [isCheckingUsername, setIsCheckingUsername] = useState(false);
 
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [isLoginAsGuest, setIsLoginAsGuest] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);
 
 	const form = useForm<z.infer<typeof registerSchema>>({
 		resolver: zodResolver(registerSchema),
@@ -93,22 +91,22 @@ export default function () {
 		})();
 	}, [debouncedUsername]);
 
-        const handleGuestLogin = async () => {
-            setIsSubmitting(true);
-            setIsLoginAsGuest(true);
-            const res = await signIn("guest", {
-                redirect: false,
-            });
-    
-            if (res?.error) {
-                // setErrors(res.error.replace("Error: ", ""));
-            } else {
-                toast.success("Logged in as guest");
-                router.push("/");
-            }
-            setIsSubmitting(false);
-            setIsLoginAsGuest(false);
-        };
+	const handleGuestLogin = async () => {
+		setIsSubmitting(true);
+		setIsLoginAsGuest(true);
+		const res = await signIn("guest", {
+			redirect: false,
+		});
+
+		if (res?.error) {
+			// setErrors(res.error.replace("Error: ", ""));
+		} else {
+			toast.success("Logged in as guest");
+			router.push("/");
+		}
+		setIsSubmitting(false);
+		setIsLoginAsGuest(false);
+	};
 	return (
 		<>
 			<div className="text-center">

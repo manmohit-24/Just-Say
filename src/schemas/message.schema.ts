@@ -10,8 +10,8 @@ export const messageReqSchema = z.object({
 		.min(10, "Message must be at least 10 characters long.")
 		.max(500, "Message cannot exceed 500 characters."),
 	receiverId: z.string().min(1, "Receiver ID is required."),
-	isAnonymous: z.boolean().default(false),
-	isTrulyAnonymous: z.boolean().default(false),
+	isAnonymous: z.boolean().catch(false),
+	isTrulyAnonymous: z.boolean().catch(false),
 });
 
 export const messageResSchema = z.object({
@@ -37,4 +37,5 @@ export const messageResSchema = z.object({
 	createdAt: z.string(),
 });
 
+export type MessageReqType = z.infer<typeof messageReqSchema>;
 export type MessageResType = z.infer<typeof messageResSchema>;

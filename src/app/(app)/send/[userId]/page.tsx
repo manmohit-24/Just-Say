@@ -37,7 +37,7 @@ import {
 } from "@/components/ui/card";
 import SendMessageSkeleton from "@/components/skeletons/SendMessage.Skeleton";
 import { useUserStore } from "@/store/user.store";
-
+import { AIMessageHelper } from "@/components/AIMessageHelper";
 export default function () {
 	const { user, isLoadingUser } = useUserStore();
 
@@ -254,8 +254,8 @@ export default function () {
 														{form.formState.errors.isTrulyAnonymous?.message}
 													</FieldError>
 													{user?._id === "guest" && (
-                                                        <FieldDescription className="w-full flex items-center text-indigo-500 italic">
-                                                            <Info className="h-4 w-4 mr-1" />
+														<FieldDescription className="w-full flex items-center text-indigo-500 italic">
+															<Info className="h-4 w-4 mr-1" />
 															Guest user can only send truly anonymous messages
 														</FieldDescription>
 													)}
@@ -264,7 +264,7 @@ export default function () {
 										/>
 									</FieldGroup>
 								</div>
-								<div className="flex items-center" >
+								<div className="flex items-center">
 									<Button
 										type="submit"
 										className="px-6 font-medium"
@@ -285,7 +285,9 @@ export default function () {
 									{user?._id === receiverId && (
 										<InfoTooltip
 											content="You can't send a message to yourself"
-											iconClassName = {"h-5 w-5 text-destructive/50 hover:text-destructive"}
+											iconClassName={
+												"h-5 w-5 text-destructive/50 hover:text-destructive"
+											}
 										/>
 									)}
 								</div>
@@ -295,7 +297,9 @@ export default function () {
 				</CardContent>
 			</Card>
 
-			<Separator />
+			<Separator className="mt-6" />
+
+			<AIMessageHelper onUse={(msg) => form.setValue("content", msg)} />
 		</div>
 	);
 }

@@ -32,23 +32,22 @@ export default function () {
 							<Skeleton className="h-3 w-16" />
 						</div>
 
-						{/* Switches */}
-						<div className="flex flex-col gap-4 mt-4">
-							<div className="flex items-center gap-2">
-								<Skeleton className="h-5 w-9 rounded-full" />
-								<Skeleton className="h-4 w-40" />
-								<Skeleton className="h-4 w-4 rounded-full" />
+						<div className="flex justify-between items-center" >
+							{/* Switches */}
+							<div className="flex flex-col gap-4 mt-4">
+								<div className="flex items-center gap-2">
+									<Skeleton className="h-5 w-9 rounded-full" />
+									<Skeleton className="h-4 w-40" />
+									<Skeleton className="h-4 w-4 rounded-full" />
+								</div>
+
+								<div className="flex items-center gap-2">
+									<Skeleton className="h-5 w-9 rounded-full" />
+									<Skeleton className="h-4 w-56" />
+									<Skeleton className="h-4 w-4 rounded-full" />
+								</div>
 							</div>
 
-							<div className="flex items-center gap-2">
-								<Skeleton className="h-5 w-9 rounded-full" />
-								<Skeleton className="h-4 w-56" />
-								<Skeleton className="h-4 w-4 rounded-full" />
-							</div>
-						</div>
-
-						{/* Submit Button */}
-						<div className="flex justify-end mt-6">
 							<Skeleton className="h-10 w-32 rounded-md" />
 						</div>
 					</div>
@@ -56,6 +55,21 @@ export default function () {
 			</Card>
 
 			<Separator className="mt-6" />
+
+			<Card className="mt-6 border border-muted/40">
+				<CardContent className="p-4 space-y-4">
+					<div className="flex items-center gap-2 text-lg font-semibold">
+						<Skeleton className="h-5 w-5 rounded-full" />
+						<Skeleton className="h-5 w-40 rounded-full" />
+					</div>
+
+					<div className="flex flex-col md:flex-row gap-2">
+						<Skeleton className="h-15 w-full rounded-md" />
+						<Skeleton className="h-10 w-32 rounded-md" />
+						<Skeleton className="h-10 w-32 rounded-md" />
+					</div>
+				</CardContent>
+			</Card>
 		</div>
 	);
 }

@@ -1,12 +1,12 @@
 import { google } from "@ai-sdk/google";
-import { streamText, generateText } from "ai";
+import { streamText } from "ai";
 import { APIResponse } from "@/lib/APIResponse";
 
 export const runtime = "edge";
 
 export const maxDuration = 30;
 
-const model = google("gemini-2.5-flash-lite");
+const model = google("gemini-2.5-flash");
 
 const systemPrompts: { [key: string]: string } = {
 	fun_compliment:
@@ -40,10 +40,13 @@ const systemPrompts: { [key: string]: string } = {
 
 export async function POST(req: Request) {
 	try {
+		const body = await req.json();
 		const {
 			prompt: message,
-			type,
-		}: { prompt: string; type: keyof typeof systemPrompts } = await req.json();
+			mode,
+		}: { prompt: string; mode: keyof typeof systemPrompts } = JSON.parse(
+			body.prompt
+		);
 
 		if (!message || typeof message !== "string") {
 			return APIResponse({
@@ -54,7 +57,7 @@ export async function POST(req: Request) {
 		}
 
 		const trimmedMsg = message.trim();
-		if (trimmedMsg.length > 300 || trimmedMsg.length < 10) {
+		if (trimmedMsg.length > 500 || trimmedMsg.length < 10) {
 			return APIResponse({
 				success: false,
 				message: "Your input is too long. Please shorten your idea.",
@@ -63,18 +66,19 @@ export async function POST(req: Request) {
 		}
 		const prompt = `${trimmedMsg}. Avoid complex words.`;
 
-		const systemPromptKey = type && type in systemPrompts ? type : "default";
+		const systemPromptKey = mode && mode in systemPrompts ? mode : "default";
 
 		const result = streamText({
 			model,
 			system: systemPrompts[systemPromptKey],
 			prompt: prompt,
-			maxOutputTokens: 200,
-			temperature: 0.7,
+			maxOutputTokens: 1000,
+            temperature: 0.7,
+            
+            
 		});
 
 		return result.toUIMessageStreamResponse();
-
 	} catch (error) {
 		console.error("Error generating AI response : \n", error);
 		return APIResponse({

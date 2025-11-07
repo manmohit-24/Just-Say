@@ -69,7 +69,7 @@ export default function Navbar() {
 
 							<DropdownMenuSeparator />
 
-							<DropdownMenuItem asChild>
+							<DropdownMenuItem asChild disabled={user._id === "guest"}>
 								<Link href="/dashboard" className="flex items-center">
 									<User className="w-4 h-4 mr-2" /> Dashboard
 								</Link>

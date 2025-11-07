@@ -25,7 +25,6 @@ export default function () {
 	const router = useRouter();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [errors, setErrors] = useState("");
-	const [isLoginAsGuest, setIsLoginAsGuest] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
 
 	const form = useForm<z.infer<typeof logInSchema>>({
@@ -49,28 +48,12 @@ export default function () {
 			setErrors(res.error.replace("Error: ", ""));
 		} else {
 			toast.success("Logged in successfully");
-			router.push("/");
+			router.replace("/");
 		}
 
 		setIsSubmitting(false);
 	};
 
-	const handleGuestLogin = async () => {
-		setIsSubmitting(true);
-		setIsLoginAsGuest(true);
-		const res = await signIn("guest", {
-			redirect: false,
-		});
-
-		if (res?.error) {
-			setErrors(res.error.replace("Error: ", ""));
-		} else {
-			toast.success("Logged in as guest");
-			router.push("/");
-		}
-		setIsSubmitting(false);
-		setIsLoginAsGuest(false);
-	};
 
 	return (
 		<>
@@ -143,16 +126,9 @@ export default function () {
 					/>
 				</FieldGroup>
 				<Button disabled={isSubmitting}>
-					{isSubmitting && !isLoginAsGuest && <Spinner />}Login
+					{isSubmitting && <Spinner />}Login
 				</Button>
-				<Button
-					variant="outline"
-					type="button"
-					onClick={handleGuestLogin}
-					disabled={isSubmitting}
-				>
-					{isSubmitting && isLoginAsGuest && <Spinner />}Continue as Guest
-				</Button>
+
 				<div className="text-center">
 					<p>
 						Don't have an account ?{" "}

@@ -31,7 +31,6 @@ export default function RootLayout({
 						<Navbar />
 						<main className="mt-16">{children}</main>
 					</ThemeProvider>
-
 					<Toaster />
 				</AuthProvider>
 			</body>

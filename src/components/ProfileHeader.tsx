@@ -30,13 +30,17 @@ export default function ProfileHeader() {
 
 	const { user, isLoadingUser } = useUserStore();
 
-	const profileUrl = `${process.env.NEXT_PUBLIC_APP_URL}/u/${user?._id}`;
+	const profileUrl = `${process.env.NEXT_PUBLIC_APP_URL}/send/${user?._id}`;
 	const form = useForm({
 		resolver: zodResolver(acceptMessageSchema),
 		defaultValues: {
 			isAcceptingMessage: user?.isAcceptingMessage || true,
 		},
 	});
+	useEffect(
+		() => form.setValue("isAcceptingMessage", user?.isAcceptingMessage as boolean),
+		[isLoadingUser]
+	);
 
 	const isAcceptingMessage = form.watch("isAcceptingMessage");
 

@@ -17,13 +17,16 @@ import {
 } from "@/components/ui/tooltip";
 import ProfileHeader from "@/components/ProfileHeader";
 import DashboardSkeleton from "@/components/skeletons/Dashboard.Skeleton";
+import { useUserStore } from "@/store/user.store";
 
 export default function () {
+	const { user ,isLoadingUser } = useUserStore();
+
 	const [isFetchingMessages, setIsFetchingMessages] = useState(false);
 	const [sentMessages, setSentMessages]: [MessageResType[], any] = useState([]);
 	const [receivedMessages, setReceivedMessages]: [MessageResType[], any] =
 		useState([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(isLoadingUser);
 
 	const receivedCursor = useRef<string>("");
 	const sentCursor = useRef<string>("");
@@ -114,11 +117,12 @@ export default function () {
 	useEffect(() => {
 		(async () => {
 			setIsLoading(true);
+			if (isLoadingUser || !user || user._id === "guest") return;
 			await fetchReceivedMessages(true);
 			await fetchSentMessages(true);
 			setIsLoading(false);
 		})();
-	}, []);
+	}, [isLoadingUser,user]);
 
 	useEffect(() => {
 		const receivedObserver = new IntersectionObserver(
@@ -194,8 +198,8 @@ export default function () {
 		}
 	};
 
-    const tabsClassName =
-			"p-4 data-[state=active]:bg-secondary  dark:data-[state=active]:bg-secondary data-[state=active]:text-foreground rounded-4xl dark:text-background text-background ";
+	const tabsClassName =
+		"p-4 data-[state=active]:bg-secondary  dark:data-[state=active]:bg-secondary data-[state=active]:text-foreground rounded-4xl dark:text-background text-background ";
 
 	return isLoading ? (
 		<DashboardSkeleton />

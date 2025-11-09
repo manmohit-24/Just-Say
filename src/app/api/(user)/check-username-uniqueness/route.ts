@@ -29,9 +29,8 @@ const RESPONSES = {
 
 export async function GET(req: NextRequest) {
 	try {
-        const username = req.nextUrl.searchParams.get("username");
-        console.log(username);
-        
+		const username = req.nextUrl.searchParams.get("username");
+
 		const validateRes = usernameValidation.safeParse(username);
 
 		if (!validateRes.success) {

@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
 
 		const { user: sender } = sessionValidationRes.data as any;
 
-        const isGuest = sender._id === "guest";
+		const isGuest = sender._id === "guest";
 
 		const body = await req.json();
 
@@ -59,11 +59,10 @@ export async function POST(req: NextRequest) {
 
 		const receiver = await User.findById(receiverId);
 		if (!receiver) return APIResponse(RESPONSES.RECEIVER_NOT_FOUND);
-        
+
 		if (!receiver.isAcceptingMessage)
 			return APIResponse(RESPONSES.RECEIVER_NOT_ACCEPTING_MESSAGE);
-        console.log("here");
-        
+
 		const message = new Message({
 			content,
 			sender: isGuest || isTrulyAnonymous ? null : sender._id,

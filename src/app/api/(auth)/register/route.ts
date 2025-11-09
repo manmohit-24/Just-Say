@@ -116,9 +116,7 @@ export async function POST(request: NextRequest) {
 			}),
 		};
 
-		const emailRes = await sendEmail(emailConfig);
-
-		// if (!emailRes.success) return APIResponse(emailRes);
+		sendEmail(emailConfig);
 
 		return APIResponse(RESPONSES.SUCCESS(safeUserResponse(resUser)));
 	} catch (error) {

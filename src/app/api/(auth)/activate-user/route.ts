@@ -70,9 +70,7 @@ export async function POST(req: NextRequest) {
 			react: WelcomeTemplate({ name: user.name, dashboardLink: "/" }),
 		};
 
-		const emailRes = await sendEmail(emailConfig);
-
-		// if (!emailRes.success) return APIResponse(emailRes);
+		sendEmail(emailConfig);
 
 		return APIResponse(RESPONSES.SUCCESS);
 	} catch (error) {

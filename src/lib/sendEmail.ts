@@ -1,37 +1,62 @@
 import { Resend } from "resend";
-import { ApiResType } from "./APIResponse";
+import { constants } from "./constants";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Imports for nodemailer :-
+import nodemailer from "nodemailer";
+import { render } from "@react-email/render";
+
 export interface emailConfig {
 	to: string;
 	subject: string;
 	react: React.ReactNode;
 }
 
-const RESPONSES = {
-	SUCCESS: {
-		success: true,
-		message: "Email sent successfully",
-		status: 200,
-	},
-	INTERNAL_ERROR: {
-		success: false,
-		message: "Error sending email",
-		status: 500,
-	},
-};
+/* In this project , we are not using sendEmail with `await` 
+because we are treating it as a background task */
+
+/* For now, I are not having a verified domin of my own. 
+So temperorily using nodemailer for using my gmail for sending emails,
+later we will be using resend once I got my domain 🥲*/
+export async function sendEmail(emailConfig: emailConfig): Promise<void> {
+	try {
+		const transporter = nodemailer.createTransport({
+			service: "gmail",
+			auth: {
+				user: process.env.GMAIL_USER,
+				pass: process.env.GMAIL_PASS,
+			},
+		});
+
+		const emailHtml = await render(emailConfig.react);
+
+		const res = await transporter.sendMail({
+			from: `"${constants.appName}" <${process.env.GMAIL_USER}>`,
+			to: emailConfig.to,
+			subject: emailConfig.subject,
+			html: emailHtml,
+		});
+
+		if (res.rejected.length)
+			console.log("Error, email not sent to : \n", res.rejected);
+	} catch (error) {
+		console.log("Error sending email : \n", error);
+	}
+}
+
+/* ----------- For Resend : ----------
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendEmail(emailConfig: emailConfig): Promise<ApiResType> {
 	try {
-		const from = "Mystery Message <manmohit@resend.dev>";
+		const from = `"${constants.appName}" <${process.env.RESEND_EMAIL}>`;
 
 		const { error } = await resend.emails.send({ from, ...emailConfig });
 
-		if (error) return RESPONSES.INTERNAL_ERROR;
+		if (error) console.log("Error sending email : \n", error);
 
-		return RESPONSES.SUCCESS;
+
 	} catch (error) {
 		console.log("Error sending email : \n", error);
-		return RESPONSES.INTERNAL_ERROR;
 	}
 }
+*/

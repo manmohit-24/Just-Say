@@ -49,7 +49,7 @@ export const PasswordResetEmailTemplate = ({
 
 				{/* Reset Button */}
 				<Section style={{ textAlign: "center", margin: "20px 0" }}>
-					<Button href={resetUrl} style={button}>
+					<Button href={`${process.env.NEXT_PUBLIC_APP_URL}/${resetUrl}`} style={button}>
 						Reset Password
 					</Button>
                 </Section>

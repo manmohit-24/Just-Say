@@ -91,7 +91,7 @@ export const authOptions: NextAuthOptions = {
 								}),
 					};
 
-					await sendEmail(emailConfig);
+					sendEmail(emailConfig);
 
 					return user;
 				} catch (error: any) {

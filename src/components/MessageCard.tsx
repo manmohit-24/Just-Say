@@ -110,7 +110,6 @@ export default function MessageCard({
 	const statusBadge = getBadge(message.status, role);
 
 	const handleDelete = async () => {
-		console.log("Deleting message:", message._id);
 		try {
 			const { data: res } = await axios.delete(
 				`/api/delete-message-for-user?messageId=${message._id}`
@@ -128,7 +127,6 @@ export default function MessageCard({
 	};
 
 	const handleUnsend = async () => {
-		console.log("Unsending message:", message._id);
 		try {
 			const { data: res } = await axios.delete(
 				`/api/unsend-message?messageId=${message._id}`

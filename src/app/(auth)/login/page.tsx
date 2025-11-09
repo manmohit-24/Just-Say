@@ -42,7 +42,6 @@ export default function () {
 	) => {
 		if (user && user._id === "guest") {
 			await signOut({ redirect: false });
-			console.log("Done");
 		}
 
 		setIsSubmitting(true);
@@ -56,7 +55,7 @@ export default function () {
 		} else {
 			toast.success("Logged in successfully");
 			setIsLoadingUser(true);
-			router.push("/dashboard");
+			router.push("/");
 		}
 
 		setIsSubmitting(false);

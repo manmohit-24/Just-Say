@@ -84,10 +84,6 @@ export function AIMessageHelper({
 		api: "/api/ai-suggestion",
 	});
 
-	useEffect(() => {
-		if (completion) console.log(completion);
-	}, [completion]);
-
 	const handleGenerate = async () => {
 		if (!prompt.trim()) return toast.warning("Write something first!");
 		await complete(JSON.stringify({ prompt, mode }));

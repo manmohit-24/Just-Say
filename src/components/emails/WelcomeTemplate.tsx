@@ -40,9 +40,7 @@ export const WelcomeTemplate = ({ name, dashboardLink }: WelcomeEmailProps) => {
 					<Heading style={secondary}>Welcome to {appName} 🎉 </Heading>
 
 					{/* Greeting */}
-					<Text style={paragraph}>
-						Hey {name}
-					</Text>
+					<Text style={paragraph}>Hey {name}</Text>
 					{/* Instructions */}
 					<Text style={paragraph}>
 						Welcome to {appName}! We’re excited to have you on board. Start
@@ -50,7 +48,10 @@ export const WelcomeTemplate = ({ name, dashboardLink }: WelcomeEmailProps) => {
 					</Text>
 
 					<Section style={{ textAlign: "center", margin: "20px 0" }}>
-						<Link href={dashboardLink} style={link}>
+						<Link
+							href={`${process.env.NEXT_PUBLIC_APP_URL}/${dashboardLink}`}
+							style={link}
+						>
 							Go To Dashboard
 						</Link>
 					</Section>

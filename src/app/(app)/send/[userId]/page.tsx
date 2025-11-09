@@ -75,11 +75,8 @@ export default function () {
 				const { data: res } = await axios.get(
 					`/api/get-user?userId=${receiverId}`
 				);
-				console.log(res.data.user);
-
 				setReceiver(res.data.user);
 			} catch (error) {
-				console.log(error);
 			} finally {
 				setIsLoading(false);
 			}
@@ -89,10 +86,7 @@ export default function () {
 	const onSubmit: SubmitHandler<MessageReqType> = async (data) => {
 		setIsSending(true);
 		try {
-			console.log(data);
-
 			const { data: res } = await axios.post("/api/send-message", data);
-			console.log(res);
 
 			if (res.success) {
 				toast.success(res.message);

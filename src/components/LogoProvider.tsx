@@ -95,7 +95,7 @@ export function LogoDark({ className }: { className?: string }) {
 				height="107.083"
 				rx="35"
 				fill="#FA8780"
-				fill-opacity="0.6"
+				fillOpacity="0.6"
 			/>
 			<rect
 				width="96.8354"
@@ -103,7 +103,7 @@ export function LogoDark({ className }: { className?: string }) {
 				rx="35"
 				transform="matrix(-1 0 0 1 153 8.69269)"
 				fill="#A373C3"
-				fill-opacity="0.6"
+				fillOpacity="0.6"
 			/>
 			<rect
 				width="96.8354"
@@ -111,7 +111,7 @@ export function LogoDark({ className }: { className?: string }) {
 				rx="35"
 				transform="matrix(-1 0 0 1 146.354 2)"
 				fill="#A373C3"
-				fill-opacity="0.6"
+				fillOpacity="0.6"
 			/>
 			<rect
 				x="9.64557"
@@ -120,14 +120,14 @@ export function LogoDark({ className }: { className?: string }) {
 				height="107.083"
 				rx="35"
 				fill="#FA8780"
-				fill-opacity="0.6"
+				fillOpacity="0.6"
 			/>
 			<circle
 				cx="51.4177"
 				cy="62.2341"
 				r="9.52726"
 				fill="black"
-				fill-opacity="0.5"
+				fillOpacity="0.5"
 			/>
 			<circle
 				cx="9.52726"
@@ -135,7 +135,7 @@ export function LogoDark({ className }: { className?: string }) {
 				r="9.52726"
 				transform="matrix(-1 0 0 1 114.109 52.7068)"
 				fill="black"
-				fill-opacity="0.5"
+				fillOpacity="0.5"
 			/>
 			<path
 				d="M130.084 126.317C130.701 126.838 131.651 126.451 131.726 125.646L133.692 104.634C133.762 103.886 133.013 103.331 132.318 103.615L114.24 110.997C113.545 111.281 113.399 112.201 113.972 112.686L130.084 126.317Z"
@@ -241,7 +241,7 @@ export function LogoLight({ className }: { className?: string }) {
 				height="107.083"
 				rx="35"
 				fill="#FA8780"
-				fill-opacity="0.6"
+				fillOpacity="0.6"
 			/>
 			<rect
 				width="96.8354"
@@ -249,7 +249,7 @@ export function LogoLight({ className }: { className?: string }) {
 				rx="35"
 				transform="matrix(-1 0 0 1 153 8.69269)"
 				fill="#A373C3"
-				fill-opacity="0.6"
+				fillOpacity="0.6"
 			/>
 			<rect
 				width="96.8354"
@@ -257,7 +257,7 @@ export function LogoLight({ className }: { className?: string }) {
 				rx="35"
 				transform="matrix(-1 0 0 1 146.354 2)"
 				fill="#A373C3"
-				fill-opacity="0.6"
+				fillOpacity="0.6"
 			/>
 			<rect
 				x="9.64557"
@@ -266,14 +266,14 @@ export function LogoLight({ className }: { className?: string }) {
 				height="107.083"
 				rx="35"
 				fill="#FA8780"
-				fill-opacity="0.6"
+				fillOpacity="0.6"
 			/>
 			<circle
 				cx="51.4177"
 				cy="62.2341"
 				r="9.52726"
 				fill="white"
-				fill-opacity="0.7"
+				fillOpacity="0.7"
 			/>
 			<circle
 				cx="9.52726"
@@ -281,7 +281,7 @@ export function LogoLight({ className }: { className?: string }) {
 				r="9.52726"
 				transform="matrix(-1 0 0 1 114.109 52.7068)"
 				fill="white"
-				fill-opacity="0.7"
+				fillOpacity="0.7"
 			/>
 			<path
 				d="M130.084 126.317C130.701 126.838 131.65 126.451 131.726 125.646L133.692 104.634C133.762 103.886 133.013 103.331 132.318 103.615L114.24 110.997C113.545 111.281 113.399 112.201 113.972 112.686L130.084 126.317Z"

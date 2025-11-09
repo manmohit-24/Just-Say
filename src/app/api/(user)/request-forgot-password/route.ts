@@ -46,8 +46,7 @@ export async function GET(req: NextRequest) {
 
 		// We will be sending success even for many invalid cases to prevent brute force attacks and trick hackers.
 
-		if (!user || !user.isActivated)
-			return APIResponse(RESPONSES.SUCCESS(email));
+		if (!user) return APIResponse(RESPONSES.SUCCESS(email));
 
 		// Token is still valid, don't send new one
 		if (user.passwordResetToken && user.passwordResetExpiry > new Date())
@@ -75,16 +74,11 @@ export async function GET(req: NextRequest) {
 			subject: "Password Reset",
 			react: PasswordResetEmailTemplate({
 				name: user.username,
-				resetUrl: `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?userId=${user._id}&token=${passwordResetToken}`,
+				resetUrl: `/reset-password?userId=${user._id}&token=${passwordResetToken}`,
 			}),
-        };        
-		console.log(
-			`${process.env.NEXT_PUBLIC_APP_URL}/reset-password?userId=${user._id}&token=${passwordResetToken}`
-		);
+		};
 
-		const emailRes = await sendEmail(emailConfig);
-
-		// if (!emailRes.success) return APIResponse(emailRes);
+		sendEmail(emailConfig);
 
 		return APIResponse(RESPONSES.SUCCESS(email));
 	} catch (error) {

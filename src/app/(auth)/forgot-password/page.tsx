@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import axios, { AxiosError } from "axios";
 import { ApiResType } from "@/lib/APIResponse";
 import {
@@ -18,12 +17,12 @@ import AuthSkeleton from "@/components/skeletons/Auth.Skeleton";
 import { useUserStore } from "@/store/user.store";
 import ForgotPasswordEmailSentPage from "@/components/ForgotPasswordEmailSent";
 export default function () {
-	const router = useRouter();
 	const { isLoadingUser } = useUserStore();
 
 	const [email, setEmail] = useState("");
 	const [error, setError] = useState("");
-	const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [emailSent, setEmailSent] = useState(false);
 
 	const onSubmit = async () => {
 		setIsSubmitting(true);
@@ -33,8 +32,9 @@ export default function () {
 				`/api/request-forgot-password?email=${email}`
 			);
 			if (res.success) {
-				toast.info(res.message);
-				router.push(`/login`);
+                toast.info(res.message);
+                setEmailSent(true);
+				// router.push(`/login`);
 			} else {
 				setError(res.message);
 			}
@@ -48,7 +48,7 @@ export default function () {
 
 	return isLoadingUser ? (
 		<AuthSkeleton fieldsCount={1} />
-	) : (
+	) : emailSent ? <ForgotPasswordEmailSentPage email={email} /> : (
 		<>
 			<div className="text-center">
 				<h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-2">
@@ -84,7 +84,7 @@ export default function () {
 						</Link>
 					</p>
 				</div>
-			</div>
+                </div>     
 		</>
 	);
 }

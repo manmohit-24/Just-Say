@@ -119,8 +119,6 @@ export function UserFetcher({
 
 	useEffect(() => {
 		setIsLoadingUser(true);
-		console.log(pathname);
-
 		if (user) {
 			if (user._id !== "guest") {
 				if (authPaths.includes(pathname)) {

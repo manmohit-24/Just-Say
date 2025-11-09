@@ -58,7 +58,7 @@ export default function () {
 			const { data: res } = await axios.post("/api/register", data);
 			if (res.success) {
 				toast.success(res.message);
-				router.push(`/activate/${res.data.id}`);
+				router.push(`/activate/${res.data._id}`);
 			} else {
 				toast.error(res.message);
 			}
@@ -143,7 +143,7 @@ export default function () {
 									</FieldError>
 								) : (
 									<FieldDescription
-										className={`${!isUsernameAvailable ? "text-destructive" : "text-black"}`}
+										className={`${!isUsernameAvailable ? "text-destructive" : "text-muted-foreground"}`}
 									>
 										{isCheckingUsername ? <Spinner /> : usernameMsg}
 									</FieldDescription>

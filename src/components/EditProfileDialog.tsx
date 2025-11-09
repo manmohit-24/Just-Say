@@ -155,7 +155,7 @@ export default function EditProfileDialog() {
 										</FieldError>
 									) : (
 										<FieldDescription
-											className={`${!isUsernameAvailable ? "text-destructive" : "text-black"}`}
+											className={`${!isUsernameAvailable ? "text-destructive" : "text-muted-foreground"}`}
 										>
 											{isCheckingUsername ? <Spinner /> : usernameMsg}
 										</FieldDescription>

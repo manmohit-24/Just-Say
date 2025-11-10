@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
 
 		let userId = req.nextUrl.searchParams.get("userId");
 
-		console.log("Here 5", userId);
+		console.log("Here 5", userId , "\n" , typeof userId);
 
 		if (!userId) return APIResponse(RESPONSES.INTERNAL_ERROR);
 
@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
 
 		console.log("Here 7");
 
-		const foundUser = await User.findById(userId);
+		const foundUser = await User.findOne({ "_id" :  userId});
 		if (!foundUser) return APIResponse(RESPONSES.INTERNAL_ERROR);
 
 		console.log("Here 8");

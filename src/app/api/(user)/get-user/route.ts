@@ -2,7 +2,6 @@ import { User } from "@/models/user.model";
 import { APIResponse, safeUserResponse } from "@/lib/APIResponse";
 import { validateSession } from "@/lib/validateSession";
 import { NextRequest } from "next/server";
-import { usernameValidation } from "@/schemas/auth.schema";
 
 const RESPONSES = {
 	SUCCESS: (data: object) => ({
@@ -10,11 +9,6 @@ const RESPONSES = {
 		message: "User found",
 		status: 200,
 		data,
-	}),
-	INVALID_USERNAME: (msg: string) => ({
-		success: false,
-		message: msg || "Invalid username format",
-		status: 400,
 	}),
 	INTERNAL_ERROR: {
 		success: false,
@@ -25,15 +19,26 @@ const RESPONSES = {
 
 export async function GET(req: NextRequest) {
 	try {
+		console.log("Here");
+
 		const sessionValidationRes = await validateSession({ allowGuest: true });
+		console.log("Here 2 ");
 
 		if (!sessionValidationRes.success) return APIResponse(sessionValidationRes);
 
+		console.log("Here 3");
+
 		const { user } = sessionValidationRes.data as any;
+
+		console.log("Here 4", user);
 
 		let userId = req.nextUrl.searchParams.get("userId");
 
+		console.log("Here 5", userId);
+
 		if (!userId) return APIResponse(RESPONSES.INTERNAL_ERROR);
+
+		console.log("Here 6");
 
 		if (userId === "me")
 			return APIResponse(
@@ -43,8 +48,12 @@ export async function GET(req: NextRequest) {
 				})
 			);
 
+		console.log("Here 7");
+
 		const foundUser = await User.findById(userId);
 		if (!foundUser) return APIResponse(RESPONSES.INTERNAL_ERROR);
+
+		console.log("Here 8");
 
 		return APIResponse(
 			RESPONSES.SUCCESS({

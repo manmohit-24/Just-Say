@@ -44,8 +44,8 @@ export default function () {
 	const { user, isLoadingUser } = useUserStore();
 
 	const [isLoading, setIsLoading] = useState(isLoadingUser);
+	const { userId: receiverId } = useParams();
 
-	const receiverId = useParams().userId;
 	const form = useForm<MessageReqType>({
 		resolver: zodResolver(messageReqSchema),
 		defaultValues: {
@@ -66,17 +66,21 @@ export default function () {
 	});
 
 	useEffect(() => {
+		setIsLoading(true);
+
 		if (isLoadingUser) return;
 		else if (user?._id === "guest") form.setValue("isTrulyAnonymous", true);
 
 		(async () => {
-			setIsLoading(true);
 			try {
+				console.log("receiverId :", receiverId);
+
 				const { data: res } = await axios.get(
 					`/api/get-user?userId=${receiverId}`
 				);
 				setReceiver(res.data.user);
 			} catch (error) {
+				toast.error(`Error occured while fetching receiver`);
 			} finally {
 				setIsLoading(false);
 			}
@@ -109,9 +113,27 @@ export default function () {
 		<SendMessageSkeleton />
 	) : (
 		<div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-background rounded w-full max-w-6xl">
-			<h1 className="text-4xl font-bold mb-4">
-				Just Say it to <span className="text-indigo-600 dark:text-indigo-400">{receiver.name}</span>
-			</h1>
+			<div className=" mb-4">
+				<h1 className="text-4xl font-bold">
+					{receiver.username ? (
+						<>
+							Just Say it to{" "}
+							<span className="text-indigo-600 dark:text-indigo-400">
+								{receiver.name}
+							</span>
+						</>
+					) : (
+						<span className="text-destructive">Unable to find user</span>
+					)}
+				</h1>
+
+				{!receiver.username && (
+					<span className="text-destructive">
+						Seems like either user not exists or there was an internal error
+						occured
+					</span>
+				)}
+			</div>
 
 			<Card className="w-full gap-1 ">
 				<CardHeader className="pb-3">
